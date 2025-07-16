@@ -1,0 +1,240 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Astha!</title>
+  <style>
+    /* Minimal Tailwind CSS build with floral theme */
+    :root {
+      --tw-bg-opacity: 1;
+      --tw-text-opacity: 1;
+      --tw-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      --tw-ring-offset-shadow: 0 0 #0000;
+      --tw-ring-shadow: 0 0 #0000;
+    }
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      overflow-y: auto;
+    }
+    .container {
+      text-align: center;
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: var(--tw-shadow);
+      max-width: 600px;
+      width: 90%;
+      position: relative;
+    }
+    .hidden {
+      display: none;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .animate-bounce {
+      animation: bounce 0.5s infinite;
+    }
+    .input-field {
+      margin: 0.5rem 0;
+      padding: 0.75rem;
+      width: 100%;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+    }
+    .text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+    .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+    .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+    .font-bold { font-weight: 700; }
+    .font-semibold { font-weight: 600; }
+    .text-pink-600 { color: rgb(219 39 119 / var(--tw-text-opacity)); }
+    .text-purple-600 { color: rgb(147 51 234 / var(--tw-text-opacity)); }
+    .text-gray-700 { color: rgb(55 65 81 / var(--tw-text-opacity)); }
+    .text-gray-800 { color: rgb(31 41 55 / var(--tw-text-opacity)); }
+    .text-white { color: rgb(255 255 255 / var(--tw-text-opacity)); }
+    .bg-pink-500 { background-color: rgb(236 72 153 / var(--tw-bg-opacity)); }
+    .bg-purple-500 { background-color: rgb(168 85 247 / var(--tw-bg-opacity)); }
+    .bg-blue-500 { background-color: rgb(59 130 246 / var(--tw-bg-opacity)); }
+    .hover\:bg-pink-600:hover { background-color: rgb(219 39 119 / var(--tw-bg-opacity)); }
+    .hover\:bg-purple-600:hover { background-color: rgb(147 51 234 / var(--tw-bg-opacity)); }
+    .hover\:bg-blue-600:hover { background-color: rgb(37 99 235 / var(--tw-bg-opacity)); }
+    .px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+    .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+    .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+    .mb-4 { margin-bottom: 1rem; }
+    .mb-6 { margin-bottom: 1.5rem; }
+    .mb-8 { margin-bottom: 2rem; }
+    .rounded-full { border-radius: 9999px; }
+    .rounded-lg { border-radius: 0.5rem; }
+    .border { border-width: 1px; }
+    .w-full { width: 100%; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+    .transition { transition-property: all; transition-duration: 150ms; }
+    .italic { font-style: italic; }
+  </style>
+</head>
+<body>
+  <audio id="backgroundMusic" autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <div id="page1" class="container">
+    <h1 class="text-4xl font-bold text-pink-600 mb-6 animate-bounce">Happy Birthday Astha! 🎉</h1>
+    <p class="text-lg text-gray-700 mb-8">A special surprise awaits you!</p>
+    <button onclick="showPage('page2')" class="bg-pink-500 text-white px-6 py-3 rounded-full hover:bg-pink-600 transition">Click for the Surprise!</button>
+  </div>
+
+  <div id="page2" class="container hidden">
+    <h2 class="text-3xl font-semibold text-purple-600 mb-6">A Little Task for You</h2>
+    <p class="text-lg text-gray-700 mb-4">Write something about me you always wanted to tell but never expressed.</p>
+    <textarea id="response" class="w-full p-4 border rounded-lg mb-4" rows="5" placeholder="Your thoughts here..."></textarea>
+    <button onclick="submitResponse()" class="bg-purple-500 text-white px-6 py-3 rounded-full hover:bg-purple-600 transition">Done</button>
+  </div>
+
+  <div id="page3" class="container hidden">
+    <h2 class="text-3xl font-bold text-pink-600 mb-6">Here's to You, Astha! 🎂</h2>
+    <h3 class="text-3xl font-bold text-pink-600 mb-6 animate-bounce">Astha Pasta</h3>
+    <div class="text-lg text-gray-800 mb-6 poem">
+      <p>Level 22 unlocked, Khushi apko Hazar,</p>
+      <p>Still dramatic, still loud, and still bizarre!</p>
+      <p>Each year I mock, it’s kinda tradition,</p>
+      <p>Watching you age gives me pure satisfaction!</p>
+      <p>We’ve known each other since we were small,</p>
+      <p>Shared lunchboxes, secrets, and crayon on the wall.</p>
+      <p>But high school came with a silent phase,</p>
+      <p>Why we stopped talking? Still a haze.</p>
+      <p>Maybe awkward, maybe shy,</p>
+      <p>But now we chat like clouds in the sky!</p>
+      <p>Endless talks, no filter, no fear,</p>
+      <p>Same chaos level, loud and clear.</p>
+      <p>You’re my vibe-twin, just with curls,</p>
+      <p>Only difference? You're into pearls.</p>
+      <p>Thanks for “Tumko,” my playlist jewel,</p>
+      <p>You made Rockstar even more cool.</p>
+      <p>I don’t pour hearts out on every friend,</p>
+      <p>But this bond? I hope it never ends.</p>
+      <p>So here’s a cheer, a laugh, a tease —</p>
+      <p>Stay crazy, stay you, and never freeze!</p>
+      <p class="font-bold italic">Regards, Anupam</p>
+    </div>
+    <div id="countdown" class="text-lg text-pink-600 font-semibold mb-6"></div>
+    <p class="text-lg text-gray-700 mb-4">You said about me:</p>
+    <p id="userResponse" class="text-lg text-gray-800 italic"></p>
+    <p class="text-lg text-gray-700 mb-4">P.S. I’d love to hear your message! Please send me a screenshot or copy-paste it to me.</p>
+  </div>
+
+  <script>
+    const music = document.getElementById('backgroundMusic');
+
+    // Attempt playback on first user interaction to comply with autoplay policies
+    function showPage(pageId) {
+      document.querySelectorAll('.container').forEach(page => page.classList.add('hidden'));
+      document.getElementById(pageId).classList.remove('hidden');
+      // Try to play music on first interaction if not already playing
+      music.play().catch(err => {
+        console.error('Audio playback failed:', err);
+        alert('Unable to play background music. Please check your internet connection.');
+      });
+      // Start countdown timer on third page
+      if (pageId === 'page3') {
+        startCountdown();
+      }
+    }
+
+    // Handle audio loading errors
+    music.addEventListener('error', () => {
+      console.error('Audio loading failed');
+      alert('Failed to load background music. Please check your internet connection.');
+    });
+
+    function submitResponse() {
+      const response = document.getElementById('response').value.trim();
+      if (!response) {
+        alert('Please write something before proceeding!');
+        return;
+      }
+      // Store response in localStorage for temporary access
+      localStorage.setItem('asthaResponse', response);
+      
+      document.getElementById('userResponse').textContent = response;
+      showPage('page3');
+    }
+
+    // Countdown timer to next birthday party (July 16, 2026, 7:00 PM IST)
+    function startCountdown() {
+      const targetDate = new Date('2026-07-16T19:00:00+05:30');
+      const countdownElement = document.getElementById('countdown');
+
+      function updateCountdown() {
+        const now = new Date();
+        const timeDiff = targetDate - now;
+
+        if (timeDiff <= 0) {
+          countdownElement.textContent = "Party time is here! 🎉";
+          clearInterval(timerInterval);
+          return;
+        }
+
+        const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+        countdownElement.textContent = `Time until your next birthday party: ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+      }
+
+      updateCountdown(); // Initial call
+      const timerInterval = setInterval(updateCountdown, 1000); // Update every second
+    }
+  </script>
+</body>
+</html>
